@@ -6,7 +6,7 @@ categories = {
     "Autre"       : 0
 }
 
-with open("transactions.csv", "r", encoding="utf-8") as f:
+with open("data/transactions.csv", "r", encoding="utf-8") as f:
     f.readline()        
     for ligne in f :
         l = ligne.strip()   
@@ -25,3 +25,14 @@ with open("transactions.csv", "r", encoding="utf-8") as f:
 
 for cle in categories :
     print(cle, " : ", f"{categories[cle]:.2f}")
+
+with open("output/resume.csv", "w", encoding="utf-8") as f:
+    f.write("categorie,total,type\n")
+    for cle in categories :
+        if (categories[cle]<0) :
+            nature = "depense"
+        elif (categories[cle]>0) :
+            nature = "revenu"
+        else : 
+            nature = "neutre"
+        f.write(f"{cle},{categories[cle]:.2f},{nature}\n")
